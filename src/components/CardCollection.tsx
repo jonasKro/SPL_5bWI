@@ -10,12 +10,10 @@ type Person = {
 };
 
 export default function Card_Collection({ }: Props) {
-  // State für die Personen
   const [people, setPeople] = useState<Person[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // useEffect, um die Daten zu laden
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,7 +24,6 @@ export default function Card_Collection({ }: Props) {
         
         const data = await response.json();
         console.log('API Response:', data); 
-        // Hier wird davon ausgegangen, dass die API eine Liste von Personen zurückgibt
         setPeople(data.data);
       } catch (err) {
         setError('Fehler beim Laden der Daten');
@@ -37,14 +34,12 @@ export default function Card_Collection({ }: Props) {
     };
 
     fetchData();
-  }, []); // Leeres Array bedeutet, dass dieser Effekt nur einmal beim ersten Rendern ausgeführt wird
+  }, []); 
 
-  // Falls noch Daten geladen werden
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // Falls ein Fehler auftritt
   if (error) {
     return <div>{error}</div>;
   }
